@@ -24,13 +24,14 @@ func main() {
 	)
 
 	if ipRepl {
-		var (
-			aimIP     = cfg.Val[string]("IpRepl.Loc2Ip")
-			toPubIP   = cfg.Val[bool]("IpRepl.Loc2Pub")
+		var (			
+			toPubIP   = cfg.Val[bool]("IpRepl.ToPub")
+			toLocIP   = cfg.Val[bool]("IpRepl.ToLoc")
+			aimIP     = cfg.Val[string]("IpRepl.ToIP")
 			onlyfirst = cfg.Val[bool]("IpRepl.OnlyFirst")
 			files     = cfg.ValArr[string]("IpRepl.Files")
 		)
-		nt.ChangeLocalIP(false, onlyfirst, toPubIP, aimIP, files...)
+		nt.ChangeLocalhost(false, onlyfirst, toPubIP, toLocIP, aimIP, files...)
 	}
 
 	if symbolRepl {

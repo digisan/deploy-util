@@ -1,8 +1,9 @@
 {
     "IpRepl": {
         "Enable": true,
-        "Loc2Pub": true,
-        "Loc2Ip": "127.0.0.3",
+        "ToPub": true,
+        "ToLoc": false,
+        "ToIP": "127.0.0.3",
         "OnlyFirst": true,
         "Files": [
             "./test.html"

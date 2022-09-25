@@ -5,7 +5,7 @@ go 1.19
 require (
 	github.com/digisan/go-config v0.0.4
 	github.com/digisan/go-generics v0.2.3
-	github.com/digisan/gotk v0.1.25
+	github.com/digisan/gotk v0.1.26
 	github.com/digisan/logkit v0.1.3
 )
 
