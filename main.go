@@ -19,26 +19,32 @@ func main() {
 	cfg.Show()
 
 	var (
-		ipRepl     = cfg.Val[bool]("IpRepl.Enable")
-		symbolRepl = cfg.Val[bool]("SymbolRepl.Enable")
+		nrIP  = cfg.CntArr[any]("IpRepl")
+		nrSyb = cfg.CntArr[any]("SymbolRepl")
 	)
 
-	if ipRepl {
-		var (			
-			toPubIP   = cfg.Val[bool]("IpRepl.ToPub")
-			toLocIP   = cfg.Val[bool]("IpRepl.ToLoc")
-			aimIP     = cfg.Val[string]("IpRepl.ToIP")
-			onlyfirst = cfg.Val[bool]("IpRepl.OnlyFirst")
-			files     = cfg.ValArr[string]("IpRepl.Files")
-		)
-		nt.ChangeLocalhost(false, onlyfirst, toPubIP, toLocIP, aimIP, files...)
+	for i := 0; i < nrIP; i++ {
+		ipRepl := cfg.Val[bool]("IpRepl", i, "Enable")
+		if ipRepl {
+			var (
+				toPubIP   = cfg.Val[bool]("IpRepl", i, "ToPub")
+				toLocIP   = cfg.Val[bool]("IpRepl", i, "ToLoc")
+				aimIP     = cfg.Val[string]("IpRepl", i, "ToIP")
+				onlyfirst = cfg.Val[bool]("IpRepl", i, "OnlyFirst")
+				files     = cfg.ValArr[string]("IpRepl", i, "Files")
+			)
+			nt.ChangeLocalhost(false, onlyfirst, toPubIP, toLocIP, aimIP, files...)
+		}
 	}
 
-	if symbolRepl {
-		var (
-			onlyCmt = cfg.Val[bool]("SymbolRepl.OnlyForCmt")
-			files   = cfg.ValArr[string]("SymbolRepl.Files")
-		)
-		ReplaceSymbol(onlyCmt, files...)
+	for i := 0; i < nrSyb; i++ {
+		symbolRepl := cfg.Val[bool]("SymbolRepl", i, "Enable")
+		if symbolRepl {
+			var (
+				onlyCmt = cfg.Val[bool]("SymbolRepl", i, "OnlyForCmt")
+				files   = cfg.ValArr[string]("SymbolRepl", i, "Files")
+			)
+			ReplaceSymbol(onlyCmt, files...)
+		}
 	}
 }

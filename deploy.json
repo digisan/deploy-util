@@ -1,19 +1,41 @@
 {
-    "IpRepl": {
-        "Enable": true,
-        "ToPub": true,
-        "ToLoc": false,
-        "ToIP": "127.0.0.3",
-        "OnlyFirst": true,
-        "Files": [
-            "./test.html"
-        ]
-    },
-    "SymbolRepl": {
-        "Enable": true,
-        "OnlyForCmt": false,
-        "Files": [
-            "./main_test.go"
-        ]
-    }
+    "IpRepl": [
+        {
+            "Enable": true,
+            "ToPub": true,
+            "ToLoc": false,
+            "ToIP": "127.0.0.5",
+            "_ToIP": "change current 'localhost' to which IP?",
+            "OnlyFirst": true,
+            "Files": [
+                "./test.html"
+            ]
+        },
+        {
+            "Enable": true,
+            "ToPub": false,
+            "ToLoc": true,
+            "ToIP": "127.0.0.3",
+            "OnlyFirst": true,
+            "Files": [
+                "./test.html"
+            ]
+        }
+    ],
+    "SymbolRepl": [
+        {
+            "Enable": true,
+            "OnlyForCmt": false,
+            "Files": [
+                "./main_test.go"
+            ]
+        },
+        {
+            "Enable": true,
+            "OnlyForCmt": true,
+            "Files": [
+                "./main_test.go"
+            ]
+        }
+    ]
 }
