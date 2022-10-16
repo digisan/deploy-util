@@ -15,7 +15,7 @@ func main() {
 	depPtr := flag.String("deploy", "./deploy.json", "deploy json file")
 	flag.Parse()
 
-	cfg.Init(true, *depPtr)
+	cfg.Init("main", true, *depPtr)
 	cfg.Show()
 
 	var (
