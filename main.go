@@ -6,6 +6,7 @@ import (
 
 	cfg "github.com/digisan/go-config"
 	nt "github.com/digisan/gotk/net-tool"
+	lk "github.com/digisan/logkit"
 )
 
 func main() {
@@ -24,27 +25,29 @@ func main() {
 	)
 
 	for i := 0; i < nrIP; i++ {
-		ipRepl := cfg.Val[bool]("IpRepl", i, "Enable")
-		if ipRepl {
+		if cfg.Val[bool]("IpRepl", i, "Enable") {
 			var (
 				toPubIP   = cfg.Val[bool]("IpRepl", i, "ToPub")
 				toLocIP   = cfg.Val[bool]("IpRepl", i, "ToLoc")
 				aimIP     = cfg.Val[string]("IpRepl", i, "ToIP")
-				onlyfirst = cfg.Val[bool]("IpRepl", i, "OnlyFirst")
+				newPort   = cfg.Val[int]("IpRepl", i, "NewPort")
+				onlyFirst = cfg.Val[bool]("IpRepl", i, "OnlyFirst")
 				files     = cfg.ValArr[string]("IpRepl", i, "Files")
 			)
-			nt.ChangeLocalhost(false, onlyfirst, toPubIP, toLocIP, aimIP, files...)
+			if newPort > 0 {
+				lk.FailOnErr("%v", nt.ChangeLocalUrlPort(false, onlyFirst, -1, newPort, files...))
+			}
+			lk.FailOnErr("%v", nt.ChangeLocalhost(false, onlyFirst, toPubIP, toLocIP, aimIP, files...))
 		}
 	}
 
 	for i := 0; i < nrSyb; i++ {
-		symbolRepl := cfg.Val[bool]("SymbolRepl", i, "Enable")
-		if symbolRepl {
+		if cfg.Val[bool]("SymbolRepl", i, "Enable") {
 			var (
 				onlyCmt = cfg.Val[bool]("SymbolRepl", i, "OnlyForCmt")
 				files   = cfg.ValArr[string]("SymbolRepl", i, "Files")
 			)
-			ReplaceSymbol(onlyCmt, files...)
+			lk.FailOnErr("%v", ReplaceSymbol(onlyCmt, files...))
 		}
 	}
 }

@@ -5,7 +5,7 @@ go 1.19
 require (
 	github.com/digisan/go-config v0.0.8
 	github.com/digisan/go-generics v0.2.3
-	github.com/digisan/gotk v0.1.26
+	github.com/digisan/gotk v0.2.0
 	github.com/digisan/logkit v0.1.3
 )
 
@@ -18,6 +18,6 @@ require (
 	github.com/tidwall/pretty v1.2.1 // indirect
 	github.com/tidwall/sjson v1.2.5 // indirect
 	github.com/xo/terminfo v0.0.0-20220910002029-abceb7e1c41e // indirect
-	golang.org/x/net v0.0.0-20221014081412-f15817d10f9b // indirect
-	golang.org/x/sys v0.0.0-20221013171732-95e765b1cc43 // indirect
+	golang.org/x/net v0.1.0 // indirect
+	golang.org/x/sys v0.1.0 // indirect
 )
