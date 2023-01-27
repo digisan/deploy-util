@@ -20,8 +20,8 @@ func main() {
 	cfg.Show()
 
 	var (
-		nrIP  = cfg.CntArr[any]("IpRepl")
-		nrSyb = cfg.CntArr[any]("SymbolRepl")
+		nrIP  = cfg.CntObjects("IpRepl")
+		nrSyb = cfg.CntObjects("SymbolRepl")
 	)
 
 	for i := 0; i < nrIP; i++ {
