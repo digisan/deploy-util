@@ -3,6 +3,8 @@ package main
 import (
 	"flag"
 	"fmt"
+	"os"
+	"path/filepath"
 
 	cfg "github.com/digisan/go-config"
 	nt "github.com/digisan/gotk/net-tool"
@@ -20,9 +22,34 @@ func main() {
 	cfg.Show()
 
 	var (
-		nrIP  = cfg.CntObjects("IpRepl")
-		nrSyb = cfg.CntObjects("SymbolRepl")
+		nrIP   = cfg.CntObjects("IpRepl")
+		nrSyb  = cfg.CntObjects("SymbolRepl")
+		backup = cfg.Val[bool]("Backup")
 	)
+
+	if backup {
+
+		for i := 0; i < nrIP; i++ {
+			if cfg.Val[bool]("IpRepl", i, "Enable") {
+				for _, fPath := range cfg.ValArr[string]("IpRepl", i, "Files") {
+					data, err := os.ReadFile(fPath)
+					lk.FailOnErr("%v", err)
+					lk.FailOnErr("%v", os.WriteFile(filepath.Join(filepath.Dir(fPath), filepath.Base(fPath)+".original"), data, os.ModePerm))
+				}
+			}
+		}
+
+		for i := 0; i < nrSyb; i++ {
+			if cfg.Val[bool]("SymbolRepl", i, "Enable") {
+				for _, fPath := range cfg.ValArr[string]("SymbolRepl", i, "Files") {
+					data, err := os.ReadFile(fPath)
+					lk.FailOnErr("%v", err)
+					lk.FailOnErr("%v", os.WriteFile(filepath.Join(filepath.Dir(fPath), filepath.Base(fPath)+".original"), data, os.ModePerm))
+				}
+			}
+		}
+
+	}
 
 	for i := 0; i < nrIP; i++ {
 		if cfg.Val[bool]("IpRepl", i, "Enable") {

@@ -36,9 +36,9 @@ func isCommentary(line string) bool {
 	return okSrc
 }
 
-func ReplaceSymbol(onlyCmt bool, fpaths ...string) error {
-	for _, fpath := range fpaths {
-		if _, err := gio.FileLineScan(fpath, func(line string) (bool, string) {
+func ReplaceSymbol(onlyCmt bool, fPaths ...string) error {
+	for _, fPath := range fPaths {
+		if _, err := gio.FileLineScan(fPath, func(line string) (bool, string) {
 			switch {
 			case onlyCmt:
 				line = IF(isCommentary(line), replace(line), line)
@@ -46,7 +46,7 @@ func ReplaceSymbol(onlyCmt bool, fpaths ...string) error {
 				line = replace(line)
 			}
 			return true, line
-		}, fpath); err != nil {
+		}, fPath); err != nil {
 			return err
 		}
 	}
