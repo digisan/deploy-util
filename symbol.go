@@ -1,4 +1,4 @@
-package main
+package deployutil
 
 import (
 	"regexp"
@@ -31,24 +31,33 @@ func replace(line string) string {
 	return line
 }
 
-func isCommentary(line string) bool {
-	okSrc := strings.HasPrefix(line, "//")
-	return okSrc
+func isCmt(srcType, line string) bool {
+	ln := strings.TrimSpace(line)
+	switch strings.TrimPrefix(srcType, ".") {
+	case "go", "cpp", "js", "ts", "rs", "java":
+		return strings.HasPrefix(ln, "//")
+	case "c":
+		return strings.HasPrefix(ln, "/*")
+	case "py", "bash", "sh":
+		return strings.HasPrefix(ln, "#")
+	case "html":
+		return strings.HasPrefix(ln, "<!--")
+	default:
+		return false
+	}
 }
 
-func ReplaceSymbol(onlyCmt bool, fPaths ...string) error {
-	for _, fPath := range fPaths {
-		if _, err := gio.FileLineScan(fPath, func(line string) (bool, string) {
-			switch {
-			case onlyCmt:
-				line = IF(isCommentary(line), replace(line), line)
-			default:
-				line = replace(line)
-			}
-			return true, line
-		}, fPath); err != nil {
-			return err
+func ReplaceSymbol(onlyCmt bool, srcType, fPath string) error {
+	if _, err := gio.FileLineScan(fPath, func(line string) (bool, string) {
+		switch {
+		case onlyCmt:
+			line = IF(isCmt(srcType, line), replace(line), line)
+		default:
+			line = replace(line)
 		}
+		return true, line
+	}, fPath); err != nil {
+		return err
 	}
 	return nil
 }
