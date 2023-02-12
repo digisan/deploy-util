@@ -8,11 +8,11 @@ import (
 )
 
 func TestEdit(t *testing.T) {
-	if err := EditOriginIP("127.0.0.1", nt.LocalIP(), "http", -1, true, true, false, "backup", "./data/main.go"); err != nil {
+	if err := EditOriginIP("127.0.0.1", nt.LocalIP(), "http", -1, true, true, false, "backup", "./data/test.html"); err != nil {
 		fmt.Println(err)
 		return
 	}
-	if err := EditSymbol(true, "", "./data/main.go"); err != nil {
+	if err := EditSymbol(true, "", "./data/test.html"); err != nil {
 		fmt.Println(err)
 		return
 	}
