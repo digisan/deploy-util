@@ -8,12 +8,16 @@ import (
 )
 
 func TestEdit(t *testing.T) {
-	if err := EditOriginIP("127.0.0.1", nt.LocalIP(), "http", -1, true, true, false, "backup", "./data/test.html"); err != nil {
-		fmt.Println(err)
+
+	n, err := EditOriginIP("127.0.0.1", nt.LocalIP(), "http", -1, true, true, false, "backup", "bak", "./data/test.html")
+	fmt.Println(n, err)
+	if err != nil {
 		return
 	}
-	if err := EditSymbol(true, "", "./data/test.html"); err != nil {
-		fmt.Println(err)
+
+	n, err = EditSymbol(true, "", "bak", "./data/test.html")
+	fmt.Println(n, err)
+	if err != nil {
 		return
 	}
 }
